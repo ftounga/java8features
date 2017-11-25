@@ -10,15 +10,20 @@ public class StreamFilter {
 		// TODO Auto-generated method stub
 
 		
-		List<Integer> list = Arrays.asList(1,2,3,4,5,6,7,8,8,4,1,9,10,11,12);
+		List<Integer> list = Arrays.asList(1,2,3,4,5,6,6,7,8,8,4,1,9,10,11,12);
 		
 		
 		/**
 		 * Filter with a predicate n -> n % 2 == 0 for pairs numbers
 		 * ***/
 		List<Integer> pairNumber =list.stream().filter(n -> n%2 ==0).collect(Collectors.toList());
-		System.out.println("Les liste des nombre pair est: " +pairNumber.toString());
+		System.out.println("Les liste des nombres pairs est: " +pairNumber.toString());
 		
+		/**
+		 * Filter with a predicate and select unique element
+		 */
+		List<Integer> pairNumberUniqueElement =list.stream().filter(n -> n%2 ==0).distinct().collect(Collectors.toList());
+		System.out.println("Les liste des nombres pairs est: " +pairNumberUniqueElement.toString());
 	}
 
 }
