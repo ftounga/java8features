@@ -43,6 +43,17 @@ public class StreamFilter {
 		List<String> singleUniqueWords= words.stream().map(w -> w.split("")).flatMap(Arrays::stream).distinct().collect(Collectors.toList());
 		System.out.println("Les liste des charactères uniques contenus dans la liste des noms est: " +singleUniqueWords.toString());
 
+		/***
+		 * Match methods help us to know if some elements correspond with a given property: AnyMath, NoMatch, AllMatch 
+		 ***/
+		Boolean anyNameStartingWithFexist = words.stream().anyMatch(w -> w.startsWith("F"));
+		System.out.println("Y a t il un nom qui commence avec la lettre F (Francky)?: "+ anyNameStartingWithFexist);
+		
+		Boolean allNameStartingWithFexist = words.stream().allMatch(w -> w.startsWith("F"));
+		System.out.println("Tous les noms commencent t il avec la lettre F (Francky)?: "+ allNameStartingWithFexist);
+	
+		Boolean noNameStartingWithFexist = words.stream().noneMatch(w -> w.startsWith("F"));
+		System.out.println("Aucun nom ne commence avec la lettre F (Francky)?: "+ noNameStartingWithFexist);
 	}
 
 }
