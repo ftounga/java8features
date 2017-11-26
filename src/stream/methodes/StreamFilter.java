@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamFilter {
 
@@ -67,6 +68,31 @@ public class StreamFilter {
 		
 		Optional<Integer> min = listNum.stream().reduce(Integer::min);
 		System.out.println("Le nombre le plus petit dans la liste précédente est: "+ min );
+	
+		/**
+		 * Generate a stream from values
+		 * **/
+		Stream<String> stream = Stream.of("Java 8", "Lambdas", "In", "Action");
+		stream.map(String::toUpperCase).forEach(System.out::println);
+		
+		/**
+		 * Generate a stream from arrays
+		 */
+		int[] numbers = {2, 3, 5, 7, 11, 13};
+		int somme = Arrays.stream(numbers).sum();
+		System.out.println("La somme des nombre de cet array est: "+somme);
+		
+		/***
+		 * Generate a stream from a recursive function. That function apply to the previous output
+		 * ***/
+		Stream.iterate(0, n->n+2).limit(10).forEach(System.out::println);
+		
+		/**
+		 * Generate a stream from  a supplier
+		 * */
+		Stream.generate(Math::random).limit(5).forEach(System.out::println);
+		
+		
 	}
 
 }
