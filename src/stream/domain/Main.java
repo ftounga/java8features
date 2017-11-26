@@ -1,9 +1,11 @@
 package stream.domain;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -35,7 +37,53 @@ public class Main {
 		List<String> cityList = listTrans.stream().map(t -> t.getTrader().getCity()).distinct().collect(Collectors.toList());	
 		System.out.println("La liste des villes dans lesquelles les traders vivent: "+cityList.toString());
 		
+		/**
+		 * Find all trader and sort them by name
+		 * **/
+		List<String> tradersNames = listTrans.stream().map(t -> t.getTrader().getName()).distinct().sorted((n1,n2)->n1.compareTo(n2)).collect(Collectors.toList());	
+		System.out.println("La liste des traders et triée par leur nom: "+tradersNames.toString());
+		/**
+		 * Find all trader, sort them by name and concatene the output String
+		 * **/
+		String allTradersNames = listTrans.stream().map(t -> t.getTrader().getName()).distinct().sorted((n1,n2)->n1.compareTo(n2)).collect(Collectors.joining(";"));	
+		System.out.println("La liste des traders et triée par leur nome et concatenée: "+allTradersNames);
 		
+		/**
+		 * Is  there any trader based in Milan
+		 */		
+		Boolean milanBased = listTrans.stream().anyMatch(t->t.getTrader().getCity().equals("Milan"));
+		System.out.println("Is there any trader based in Milan? "+milanBased);
+		
+		/**
+		 * Print all transaction value of traders living in Douala
+		 */
+		listTrans.stream().filter(t->t.getTrader().getCity().equals("Douala")).map(t->t.getValue()).forEach(t->{
+			System.out.println("Traders transaction values "+t);
+		});
+		
+		/**
+		 * Higthest transactions value
+		 * **/
+		int max=listTrans.stream().map(t->t.getValue()).reduce(0, Integer::max);
+		System.out.println("Higthest transaction values "+max);
+		
+		/**
+		 * Lowest transactions value
+		 * **/
+		Optional<Integer> min=listTrans.stream().map(t->t.getValue()).reduce(Integer::min);
+		System.out.println("Lowest transaction values "+min.get());
+		
+		/**
+		 * Convert to a numeric Stream
+		 * **/
+		IntStream intStream = listTrans.stream().mapToInt(t->t.getValue());
+		int minimum=intStream.sum();
+		System.out.println("Lowest transaction values "+minimum);
+		
+		/**
+		 * Convert to an object Stream
+		 * */
+		Stream<Integer> objectStream = intStream.boxed();
 	}
 
 }
