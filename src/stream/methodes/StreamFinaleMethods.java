@@ -83,10 +83,26 @@ public class StreamFinaleMethods {
 			}
 		}));
 		System.out.println("La liste des transactions regroupées par ville: "+ traderCityEnum.toString());
+		
+		/**
+		 * Multi level grouping
+		 * ***/
+		Map<String, Map<Price, List<Transaction>>> traderCityMultiMap = listTrans.stream().collect(Collectors.groupingBy(tr -> tr.getTrader().getCity(), Collectors.groupingBy(tr -> {
+			if(tr.getValue() <900){
+				return Price.CHEAP;
+			}else{
+				return Price.EXPENSIVE;
+			}
+		})));
+		System.out.println("La liste des transactions regroupées par ville: "+ traderCityMultiMap.toString());
 	}
 	
 	private static enum Ville{
 		DOUALA,YAOUNDE		
-	}
+	}	
+	
+	private static enum Price{
+		EXPENSIVE,CHEAP		
+	}	
 	
 }
