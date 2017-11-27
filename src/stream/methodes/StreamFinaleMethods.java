@@ -1,5 +1,6 @@
 package stream.methodes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -108,6 +109,10 @@ public class StreamFinaleMethods {
 		 * **/
 		List<Integer> numbers = IntStream.rangeClosed(2, 50).boxed().collect(new ToListCollector<Integer>());
 		System.out.println("La taille de la liste de nombre générée grace au collector ToListCollector: "+ numbers.size());
+		
+		/***The same result is possible without having to implemented collector from scratch. Here we assume that we have: IDENTITY_FINISH**/
+		List<Integer> numbers1 = IntStream.rangeClosed(2, 50).boxed().collect(ArrayList::new, List::add, List::addAll);
+		System.out.println("La taille de la liste de nombre générée grace sans collector implémenté from scratch: "+ numbers1.size());
 		
 	}
 	
