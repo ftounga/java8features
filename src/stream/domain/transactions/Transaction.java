@@ -1,4 +1,4 @@
-package stream.domain;
+package stream.domain.transactions;
 
 public class Transaction {
 

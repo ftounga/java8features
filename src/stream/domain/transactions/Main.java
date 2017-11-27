@@ -1,4 +1,4 @@
-package stream.domain;
+package stream.domain.transactions;
 
 import java.util.Arrays;
 import java.util.List;

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import stream.domain.Traders;
-import stream.domain.Transaction;
+import stream.domain.transactions.Traders;
+import stream.domain.transactions.Transaction;
 import sun.management.MappedMXBeanType;
 
 public class StreamFinaleMethods {
