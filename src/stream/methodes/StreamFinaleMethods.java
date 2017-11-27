@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import stream.domain.transactions.Traders;
 import stream.domain.transactions.Transaction;
@@ -101,6 +102,12 @@ public class StreamFinaleMethods {
 		 * ****/
 		Map<Boolean, List<Transaction>> traderCityPartition = listTrans.stream().collect(Collectors.partitioningBy(tr -> tr.getTrader().getCity().equals("Yaounde")));
 		System.out.println("La liste des transactions partitionnées par ville par ville: "+ traderCityPartition.toString());
+		
+		/**
+		 * Customized collectors ToList
+		 * **/
+		List<Integer> numbers = IntStream.rangeClosed(2, 50).boxed().collect(new ToListCollector<Integer>());
+		System.out.println("La taille de la liste de nombre générée grace au collector ToListCollector: "+ numbers.size());
 		
 	}
 	
