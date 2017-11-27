@@ -3,6 +3,7 @@ package stream.methodes;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -65,6 +66,27 @@ public class StreamFinaleMethods {
 		int totalReduceValue = listTrans.stream().collect(Collectors.reducing(0,Transaction::getValue, (i,j) -> i+j));
 		System.out.println("La somme des valeurs des transaction est: "+ totalReduceValue);
 		
+		/**
+		 * Grouping
+		 */
+		Map<String, List<Transaction>> traderCityMap = listTrans.stream().collect(Collectors.groupingBy(tr -> tr.getTrader().getCity()));
+		System.out.println("La liste des transactions regroupées par ville: "+ traderCityMap.toString());
+		
+		/**
+		 * Grouping with a personilized Key like an enum
+		 */
+		Map<Ville, List<Transaction>> traderCityEnum = listTrans.stream().collect(Collectors.groupingBy(tr -> {
+			if(tr.getTrader().getCity().equals("Yaounde")){
+				return Ville.YAOUNDE;
+			}else{
+				return Ville.DOUALA;
+			}
+		}));
+		System.out.println("La liste des transactions regroupées par ville: "+ traderCityEnum.toString());
+	}
+	
+	private static enum Ville{
+		DOUALA,YAOUNDE		
 	}
 	
 }
