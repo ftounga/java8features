@@ -94,7 +94,14 @@ public class StreamFinaleMethods {
 				return Price.EXPENSIVE;
 			}
 		})));
-		System.out.println("La liste des transactions regroupées par ville: "+ traderCityMultiMap.toString());
+		System.out.println("La liste des transactions regroupées par ville et par value: "+ traderCityMultiMap.toString());
+		
+		/****
+		 * Partitioning
+		 * ****/
+		Map<Boolean, List<Transaction>> traderCityPartition = listTrans.stream().collect(Collectors.partitioningBy(tr -> tr.getTrader().getCity().equals("Yaounde")));
+		System.out.println("La liste des transactions partitionnées par ville par ville: "+ traderCityPartition.toString());
+		
 	}
 	
 	private static enum Ville{
