@@ -11,6 +11,7 @@ public class PrimeNumbers {
 		// TODO Auto-generated method stub
 
 		System.out.println("La liste des nombres premiers et non premiers allant qu'à 50" + partitionPrimes(50));
+		System.out.println("La liste des nombres premiers et non premiers allant qu'à 50 avec un collecteur customisé" + partitionPrimesWithCustomCollector(50));
 		
 	}
 	
@@ -19,8 +20,14 @@ public class PrimeNumbers {
 		return IntStream.rangeClosed(2, candidateRoot).noneMatch(i -> candidate % i ==0);
 	}
 	
+	
+	
 	static Map<Boolean, List<Integer>> partitionPrimes(int n){
 		return IntStream.rangeClosed(2, n).boxed().collect(Collectors.partitioningBy(candidate -> isPrime(candidate)));
+	}
+	
+	static Map<Boolean, List<Integer>> partitionPrimesWithCustomCollector(int n){
+		return IntStream.rangeClosed(2, n).boxed().collect(new PrimeNumbersCollector());
 	}
 
 }
