@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import stream.bean.ToListCollector;
 import stream.domain.transactions.Traders;
 import stream.domain.transactions.Transaction;
 import sun.management.MappedMXBeanType;

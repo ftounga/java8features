@@ -1,8 +1,12 @@
 package stream.methodes;
 
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.function.Function;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
+
+import stream.bean.ForkJoinSumCalculator;
 
 public class ParalleleStream {
 
@@ -24,8 +28,10 @@ public class ParalleleStream {
 		System.out.println("parallel sum done in :" +measureSumPerf(ParalleleStream::parallelSum, 10000000)+" ms");
 		System.out.println("parallel sum with rangclosed method done in :" +measureSumPerf(ParalleleStream::parallelSumWithRangeClosed, 10000000)+" ms");
 		
-		/**Utilisation mutée et partagée par les 2 flux***/
-		System.out.println("parallel sum with side effect :" +measureSumPerf(ParalleleStream::sideEffectSum, 10000000)+" ms");		
+		/**Utilisation de variable mutée et partagée par les 2 flux lors du calcul de la somme en parallel***/
+		System.out.println("parallel sum with side effect :" +measureSumPerf(ParalleleStream::sideEffectSum, 10000000)+" ms");	
+		
+		System.out.println("parallel sum with fork/join framework of java 7 :" +measureSumPerf(ParalleleStream::forkJoinSum, 10000000)+" ms");
 		
 	}
 	/**
@@ -91,10 +97,21 @@ public class ParalleleStream {
 		return fastest;
 	}
 	
+	/**
+	 * Perform a sum in parallel with side effects by using a shared accumulator
+	 * @param n
+	 * @return
+	 */
 	public static long sideEffectSum(long n){
 		Accumulator accumulator = new Accumulator();
 		LongStream.rangeClosed(1, n).parallel().forEach(accumulator::add);
 		return accumulator.total;		
+	}
+	
+	public static long forkJoinSum(long n){
+		long[] numbers = LongStream.rangeClosed(1, n).toArray();
+		ForkJoinTask<Long> task = new ForkJoinSumCalculator(numbers);
+		return new ForkJoinPool().invoke(task);
 	}
 	
 	

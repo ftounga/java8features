@@ -1,4 +1,4 @@
-package stream.methodes;
+package stream.bean;
 
 import java.util.ArrayList;
 import java.util.Collections;
