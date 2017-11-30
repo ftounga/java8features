@@ -6,6 +6,12 @@ import java.util.stream.Stream;
 
 public class ParalleleStream {
 
+	private static class Accumulator{
+		public long total = 0;
+		public void add(long value){
+			total+=value;
+		}
+	}
 	/**
 	 * Cette classe va nous permettre de mesurer les temps d'execution entre une fonction itérative, sequentielle, et parallel
 	 * @param args
@@ -17,6 +23,10 @@ public class ParalleleStream {
 		System.out.println("sequential sum with rangclosed method done in :" +measureSumPerf(ParalleleStream::sequentialSumWithRangeClosed, 10000000)+" ms");
 		System.out.println("parallel sum done in :" +measureSumPerf(ParalleleStream::parallelSum, 10000000)+" ms");
 		System.out.println("parallel sum with rangclosed method done in :" +measureSumPerf(ParalleleStream::parallelSumWithRangeClosed, 10000000)+" ms");
+		
+		/**Utilisation mutée et partagée par les 2 flux***/
+		System.out.println("parallel sum with side effect :" +measureSumPerf(ParalleleStream::sideEffectSum, 10000000)+" ms");		
+		
 	}
 	/**
 	 * Permet de faire la somme des n premiers nombres de facon séquentielle
@@ -74,11 +84,17 @@ public class ParalleleStream {
 		for (int i=0; i<10;i++){
 			long start =System.nanoTime();
 			long sum = adder.apply(n);
-			//System.out.println("La somme des 1000000 premiers nombres est: "+sum);
+			System.out.println("La somme des 1000000 premiers nombres est: "+sum);
 			long duration = (System.nanoTime() - start)/1000000;
 			if (duration<fastest) fastest = duration;
 		}
 		return fastest;
+	}
+	
+	public static long sideEffectSum(long n){
+		Accumulator accumulator = new Accumulator();
+		LongStream.rangeClosed(1, n).parallel().forEach(accumulator::add);
+		return accumulator.total;		
 	}
 	
 	
