@@ -1,11 +1,9 @@
 package stream.methodes;
 
-import java.util.List;
 import java.util.Spliterator;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -14,7 +12,6 @@ import java.util.stream.StreamSupport;
 import stream.bean.ForkJoinSumCalculator;
 import stream.bean.WordCounter;
 import stream.bean.WordCounterSpliterator;
-import sun.reflect.generics.tree.IntSignature;
 
 public class ParalleleStream {
 

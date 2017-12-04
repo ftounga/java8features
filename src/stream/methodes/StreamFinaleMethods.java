@@ -12,7 +12,6 @@ import java.util.stream.IntStream;
 import stream.bean.ToListCollector;
 import stream.domain.transactions.Traders;
 import stream.domain.transactions.Transaction;
-import sun.management.MappedMXBeanType;
 
 public class StreamFinaleMethods {
 
