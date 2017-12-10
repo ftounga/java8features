@@ -2,16 +2,14 @@ package optional.withopt;
 
 import java.util.Optional;
 
-import optional.Car;
-
 public class Person {
-private Optional<Car> car;
+private Optional<optional.withopt.Car> car;
 
-public Optional<Car> getCar() {
+public Optional<optional.withopt.Car> getCar() {
 	return car;
 }
 
-public void setCar(Optional<Car> car) {
+public void setCar(Optional<optional.withopt.Car> car) {
 	this.car = car;
 }
 

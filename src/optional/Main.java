@@ -8,9 +8,15 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		Insurance axa = new Insurance();
+		Insurance groupama = new Insurance();
+		groupama.setName("groupama");
 		Car car = new Car();
-		car.equals(axa);
+		optional.withopt.Car optCar = new optional.withopt.Car();
+		optCar.setInsurance(Optional.of(groupama));
+		car.setInsurance(axa);
 		Person francky = new Person();
+		optional.withopt.Person raoul = new optional.withopt.Person();
+		raoul.setCar(Optional.of(optCar));
 		francky.setCar(car);
 		
 		Optional<Insurance> axaOptional= Optional.of(axa);
@@ -25,7 +31,14 @@ public class Main {
 		if(!name.isPresent()){
 			System.out.println(" La méthode getInsuranceName retourne une Optional Empty");
 		}
-	}
+		
+		Optional<optional.withopt.Person> optPerson = Optional.of(raoul);
+		/**
+		 * La méthode  flat map permet de convertir: Optional<Optional<T>> en Optional<T>
+		 */
+		Optional<String> insuranceName = optPerson.flatMap(optional.withopt.Person::getCar).flatMap(optional.withopt.Car::getInsurance).map(Insurance::getName);
+		System.out.println("Le nom de l'assurance de raoul est:" + insuranceName.get());
+		}
 
 	public static String getCarInsuranceName(Person person){
 		return person.getCar().getInsurance().getName();
